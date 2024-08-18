@@ -1,0 +1,18 @@
+.getanime-container {
+   align-items: center;
+
+   div:first-child {
+      width: 100%;
+   }
+
+   .button-container {
+      margin: auto;
+   }
+
+   .icon-search {
+      padding-top: 1.5px;
+      margin-left: 5px;
+      position: relative;
+      top: 4px; 
+   }
+}

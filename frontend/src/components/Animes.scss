@@ -1,0 +1,22 @@
+.animes-container {
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   max-width: 100%;
+   padding-top: 50px;
+   height: 100vh;
+   flex: auto;
+   
+   @media (max-width: 1024px) {
+      max-width: 100%;
+   }
+
+   @media (max-width: 768px) {
+      padding: 30px;
+      max-width: 100%;
+   }
+
+   h1 {
+      margin-bottom: 10px;
+   }
+}
