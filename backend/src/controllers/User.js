@@ -20,7 +20,7 @@ class UserController {
   static getUserById = async (req, res, next) => {
     try {
       const user = await UserServices.getById(req.params.id);
-      if (!user) return res.status(404).json({ msg: 'User not found dentro de controller' });
+      if (!user) return res.status(404).json({ msg: 'User not found' });
       return res.status(200).json(user);
     } catch (err) {
       return next(err);
@@ -30,7 +30,7 @@ class UserController {
   static getAllUsers = async (req, res, next) => {
     try {
       const users = await UserServices.getAll();
-      if (users.length === 0 || !users) return res.status(404).json({ msg: 'User not found' });
+      if (users.length === 0 || !users) return res.status(404).json({ msg: 'No user registration' });
       return res.status(200).json({ users });
     } catch (err) {
       return next(err);
