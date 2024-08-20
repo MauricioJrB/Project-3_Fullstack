@@ -6,8 +6,12 @@ class UserServices {
     return user.save();
   }
 
-  static async getById(id) {
+  static async getUserById(id) {
     return UserModel.findById(id);
+  }
+
+  static async getByEmail(filter = {}) {
+    return UserModel.findOne(filter);
   }
 
   static async getAll() {
