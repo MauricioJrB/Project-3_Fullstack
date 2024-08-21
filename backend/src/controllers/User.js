@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import bcrypt from 'bcrypt';
 import jwt from 'jwt-simple';
+import { validationResult } from 'express-validator';
 import UserNotFound from '../errors/UserNotFound.js';
 import ValidationError from '../errors/ValidationError.js';
 import UserServices from '../services/User.js';
@@ -12,39 +14,51 @@ const getPasswordHash = password => {
 };
 class UserController {
   static signIn = async (req, res, next) => {
-    await UserServices.getByEmail({ email: req.body.email })
-      .then(user => {
-        if (!user) return next(new ValidationError('Invalid User or Password'));
-        if (bcrypt.compareSync(req.body.password, user.password)) {
-          const payload = {
-            id: user.id,
-            email: user.email,
-          };
-          const token = jwt.encode(payload, SECRET);
-          return res.status(200).json({ token });
-        } return next(new ValidationError('Invalid User or Password'));
-      })
-      .catch(err => next(err));
+    try {
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
+
+      const { email, password } = req.body;
+
+      const user = await UserServices.getByEmail({ email });
+
+      if (!user) return next(new ValidationError('Invalid User or Password'));
+
+      if (bcrypt.compareSync(password, user.password)) {
+        const payload = {
+          id: user.id,
+          email: user.email,
+        };
+        const token = jwt.encode(payload, SECRET);
+        return res.status(200).json({ token });
+      } return next(new ValidationError('Invalid User or Password'));
+    } catch (err) {
+      return console.log(`Error: ${err}`);
+    }
   };
 
-  static create = async (req, res, next) => {
-    const { email, password } = req.body;
+  static createUser = async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
 
-    const regexEmail = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
+      if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
 
-    if (!regexEmail.test(email)) return next(new ValidationError('Invalid email adress'));
-    if (!password || password.length < 6) return next(new ValidationError('Insert a valid password'));
+      const { email, password } = req.body;
 
-    const userExists = await UserServices.getByEmail({ email });
-    if (userExists) return next(new ValidationError('There is already a user with this email'));
+      const userExists = await UserServices.getByEmail({ email });
+      if (userExists) return next(new ValidationError('There is already a user with this email'));
 
-    const passwordEncrypted = getPasswordHash(password);
+      const passwordEncrypted = getPasswordHash(password);
 
-    const newUser = { email, password: passwordEncrypted };
+      const newUser = { email, password: passwordEncrypted };
 
-    return UserServices.create(newUser)
-      .then(user => res.status(201).json({ User: user }))
-      .catch(err => next(err));
+      return UserServices.create(newUser)
+        .then(user => res.status(201).json({ User: user }))
+        .catch(err => next(err));
+    } catch (err) {
+      return console.log(`Error: ${err}`);
+    }
   };
 
   static getUserById = async userId => {
