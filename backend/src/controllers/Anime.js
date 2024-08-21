@@ -1,16 +1,16 @@
 import mongoose from 'mongoose';
+import { validationResult } from 'express-validator';
 import AnimeServices from '../services/Anime.js';
 import ValidationError from '../errors/ValidationError.js';
 import AnimeNotFound from '../errors/AnimeNotFound.js';
 
 class AnimeController {
-  static create = (req, res, next) => {
-    const { character, anime, quote, owner } = req.body;
+  static createAnime = (req, res, next) => {
+    const errors = validationResult(req);
 
-    if (character.length < 3) return next(new ValidationError('Enter more than 3 characters'));
-    if (anime.length < 3) return next(new ValidationError('Enter more than 3 characters'));
-    if (quote.length < 5) return next(new ValidationError('Enter more than 5 characters'));
-    if (!owner) return next(new ValidationError('Insert user id'));
+    if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() });
+
+    const { character, anime, quote, owner } = req.body;
 
     const newAnime = { character, anime, quote, owner };
 
