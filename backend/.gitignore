@@ -1,4 +1,4 @@
 node_modules
 .env
-certificado_key
-certificado_cert
+certificado.key
+certificado.cert
