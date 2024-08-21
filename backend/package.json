@@ -21,12 +21,18 @@
   "description": "",
   "dependencies": {
     "backend": "file:",
+    "bcrypt": "^5.1.1",
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.20.2",
     "consign": "^0.1.6",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "express": "^4.19.2",
-    "mongoose": "^8.5.3"
+    "jwt-simple": "^0.5.6",
+    "mongoose": "^8.5.3",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "text-encoding": "^0.7.0"
   }
 }
