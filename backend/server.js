@@ -8,8 +8,8 @@ dotEnv.config();
 const PORT = process.env.SERVER_PORT;
 
 const options = {
-  key: fs.readFileSync('certificado.key'),
-  cert: fs.readFileSync('certificado.cert'),
+  key: fs.readFileSync('localhost-key.pem'),
+  cert: fs.readFileSync('localhost.pem'),
 };
 
 https.createServer(options, app).listen(PORT, () => {
