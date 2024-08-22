@@ -20,9 +20,10 @@ class AnimeController {
   };
 
   static getAnimeByUser = async (req, res, next) => {
-    const userId = req.params.id;
+    const userId = req.user.id;
+    const { character } = req.params;
 
-    return AnimeServices.getByUser(userId)
+    return AnimeServices.getByUserAndCharacter(userId, character)
       .then(anime => {
         if (!anime || anime.length === 0) return next(new AnimeNotFound('Anime not found'));
         return res.status(200).json({ anime });
