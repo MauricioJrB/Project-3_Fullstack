@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import db from './config/dbConnect.js';
 import routerConfig from './config/router.js';
 
@@ -7,7 +9,7 @@ const app = express();
 
 app.db = db;
 app.use(bodyParser.json());
-
+app.use(cors({ origin: '*' }));
 routerConfig(app);
 
 app.get('/', (req, res) => {
