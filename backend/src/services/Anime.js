@@ -6,8 +6,8 @@ class AnimeServices {
     return anime.save();
   }
 
-  static async getByUser(id) {
-    return AnimeModel.find({ owner: id }).sort('-createdAt');
+  static async getByUserAndCharacter(userId, character) {
+    return AnimeModel.find({ owner: userId, character });
   }
 
   static async getAll() {
