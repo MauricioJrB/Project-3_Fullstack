@@ -1,0 +1,14 @@
+.add-anime-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  div:first-child {
+    width: 30%;
+  }
+
+  .button-add {
+    display: flex;
+    justify-content: center;
+    width: 50vw;
+  }
+}
