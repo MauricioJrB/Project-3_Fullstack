@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jwt-simple';
 import { validationResult } from 'express-validator';
 import UserNotFound from '../errors/UserNotFound.js';
@@ -38,7 +38,7 @@ class UserController {
     }
   };
 
-  static createUser = async (req, res, next) => {
+  static signUp = async (req, res, next) => {
     try {
       const errors = validationResult(req);
 
@@ -46,7 +46,7 @@ class UserController {
 
       const { email, password } = req.body;
 
-      const userExists = await UserServices.getByEmail({ email });
+      const userExists = await UserServices.getByEmail(email);
       if (userExists) return next(new ValidationError('There is already a user with this email'));
 
       const passwordEncrypted = getPasswordHash(password);
