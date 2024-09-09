@@ -4,8 +4,8 @@ import Input from './Input';
 import Button from './Button';
 import { FaPlus } from 'react-icons/fa';
 import { AuthContext } from '../contexts/UserContext';
-import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 import './AddAnime.scss'
 
