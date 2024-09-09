@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react'
-import { GrFormUpload } from 'react-icons/gr'
-import Button from '../../../components/Button'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react';
+import { GrFormUpload } from 'react-icons/gr';
+import Button from '../../../components/Button';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useAlert } from 'react-alert';
+import { AuthContext } from '../../../contexts/UserContext';
 
-import '../components/SignIn.scss'
-import axios from 'axios'
-import { useAlert } from 'react-alert'
-import { AuthContext } from '../../../contexts/UserContext'
+import '../components/SignIn.scss';
 
 const SignIn = () => {
   const [email, setEmail] = useState("");

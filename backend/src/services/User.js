@@ -10,8 +10,8 @@ class UserServices {
     return UserModel.findById(id);
   }
 
-  static async getByEmail(filter = {}) {
-    return UserModel.findOne(filter);
+  static async getByEmail(email) {
+    return UserModel.findOne(email);
   }
 
   static async getAll() {

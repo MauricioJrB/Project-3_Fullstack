@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Button from '../../../components/Button';
 import { GrFormUpload } from "react-icons/gr";
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useAlert } from 'react-alert';
+import axios from 'axios';
 
 import '../components/SignUp.scss';
 

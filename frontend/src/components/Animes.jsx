@@ -1,13 +1,12 @@
 import { useEffect, useState, useCallback, useMemo, useContext } from "react";
-import axios from "axios";
 import { useAlert } from "react-alert";
-
-import "./Animes.scss";
-
 import GetAnime from "./GetAnime";
 import AnimesItem from "./AnimesItem";
 import AddAnime from "./AddAnime";
 import { AuthContext } from "../contexts/UserContext";
+import axios from 'axios';
+
+import "./Animes.scss";
 
 const Animes = () => {
   const [animes, setAnimes] = useState([]);

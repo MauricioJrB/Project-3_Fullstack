@@ -1,6 +1,6 @@
 import express from 'express';
 import AnimeController from '../controllers/Anime.js';
-import validate from '../config/middlewares.js';
+import validate from '../middlewares/sanitzers.js';
 
 const router = express.Router();
 
